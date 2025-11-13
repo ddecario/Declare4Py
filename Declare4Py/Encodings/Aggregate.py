@@ -8,7 +8,7 @@ from pandas import DataFrame, Index
 
 class Aggregate(BaseEstimator, TransformerMixin):
     
-    def __init__(self, case_id_col: str, cat_cols: List[str], num_cols: List[str] = [], boolean: bool = False,
+    def __init__(self, case_id_col: str, cat_cols: List[str], num_cols: List[str] = None, boolean: bool = False,
                  fillna: bool = True, aggregation_functions: List[str] = ('mean', 'max', 'min', 'sum')):
         """
         Parameters
@@ -27,7 +27,7 @@ class Aggregate(BaseEstimator, TransformerMixin):
         
         self.case_id_col = case_id_col  
         self.cat_cols = cat_cols    
-        self.num_cols = num_cols    
+        self.num_cols = num_cols if num_cols is not None else []    
         self.boolean = boolean    
         self.fillna = fillna       
         self.columns = None

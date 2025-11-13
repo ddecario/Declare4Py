@@ -80,7 +80,7 @@ class ComplexIndexBased(BaseEstimator, TransformerMixin):
             dt_index.columns = [self.case_id_col] + ['duration_' + str(i)] + \
                                [f"{col}_{i}" for col in self.cat_cols] + \
                                [f"{col}_{i}" for col in self.num_cols]
-            dt_transformed = pd.merge(dt_transformed, dt_index, on=self.case_id_col, how="left")
+            dt_transformed = pd.merge(dt_transformed, dt_index, on=self.case_id_col, how="left", validate="one_to_one")
         dt_transformed.index = dt_transformed[self.case_id_col]
 
         # one-hot-encode cat cols

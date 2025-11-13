@@ -82,14 +82,15 @@ class ComplexIndexNgram(TransformerMixin):
         # transform activity col into ngram matrix
         ngram = X.groupby([self.case_id_col], sort=False).apply(lambda x: (['|'.join( x[self.act_col][i:i+self.n]) for i in range(0,len(x[self.act_col])-self.n+1)]) )
 
+        from itertools import chain
         nested_list = list(ngram.values)
-        my_unnested_list = list(chain(*nested_list))
-        ngram_list = list(set(my_unnested_list))
+        my_unnested_list = list(chain.from_iterable(nested_list))
+        ngram_list = list(set(chain.from_iterable(ngram.values)))
         
         X2 = X.groupby([self.case_id_col], sort=False).apply(lambda x: np.array(x[self.act_col]) )
         X2 = X2.apply(lambda x: self.func_ngram(x, n=self.n, v=0.7, ngram_list = ngram_list ))
         
-        dt_transformed = pd.DataFrame(columns=  [i for i in ngram_list])
+        dt_transformed = pd.DataFrame(columns=list(ngram_list))
         for i in range(len(X2)):
             dt_transformed.loc[i] = X2[i]
 
@@ -102,7 +103,7 @@ class ComplexIndexNgram(TransformerMixin):
         for i in range(self.max_events):
             dt_index = grouped.nth(i)[[self.case_id_col] + ['duration'] + self.cat_cols + self.num_cols]
             dt_index.columns = [self.case_id_col] + ['duration_' + str(i)] + ["%s_%s"%(col, i) for col in self.cat_cols] + ["%s_%s"%(col, i) for col in self.num_cols]
-            dt_transformed = pd.merge(dt_transformed, dt_index, on=self.case_id_col, how="left")
+            dt_transformed = pd.merge(dt_transformed, dt_index, on=self.case_id_col, how="left", validate="one_to_one")
         dt_transformed.index = dt_transformed[self.case_id_col]
 
         # one-hot-encode cat cols
@@ -180,7 +181,7 @@ class ComplexIndexNgram(TransformerMixin):
         
         terms = x.split('|')
         loc1 = [i for i, e in enumerate(y) if e == terms[0]]
-        layer1 = list()
+        layer1 = []
         if len(loc1) >0:
             for i in loc1:      
                 loc2 = [j for j in range(i, len(y)) if y[j] == terms[1]]
@@ -213,7 +214,7 @@ class ComplexIndexNgram(TransformerMixin):
         
         terms = x.split('|')
         loc1 = [i for i, e in enumerate(y) if e == terms[0]]
-        layer1 = list()
+        layer1 = []
         if len(loc1) >0:
             for i in loc1:      
                 loc2 = [j for j in range(i, len(y)) if y[j] == terms[1]]

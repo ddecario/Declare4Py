@@ -17,6 +17,7 @@ from Declare4Py.Encodings.Aggregate import Aggregate
 
 
 class D4PyEventLog:
+    ERR_LOG_NOT_LOADED = "You must load a log before."
     """
     Wrapper that collects the input log, the computed binary encoding and frequent item set for the input log.
 
@@ -76,6 +77,7 @@ class D4PyEventLog:
         self.timestamp_key = self.log._properties['pm4py:param:timestamp_key']
         self.activity_key = self.log._properties['pm4py:param:activity_key']
 
+
     def get_log(self) -> EventLog:
         """
         Returns the log previously fed in input.
@@ -84,7 +86,7 @@ class D4PyEventLog:
             the input log.
         """
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         return self.log
 
     def get_length(self) -> int:
@@ -95,22 +97,22 @@ class D4PyEventLog:
             the length of the log.
         """
         if self.log_length is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         return self.log_length
 
     def get_concept_name(self) -> str:
         if self.log_length is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         return self.activity_key
 
     def get_case_name(self) -> str:
         if self.log_length is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         return self.case_id_key
 
     def get_timestamp_name(self) -> str:
         if self.log_length is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         return self.timestamp_key
 
     def get_event_attribute_values(self, attribute: str, count_once_per_case: bool = False) -> Dict[str, int]:
@@ -128,7 +130,7 @@ class D4PyEventLog:
 
         """
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if packaging.version.parse(pm4py.__version__) > packaging.version.Version("2.3.1"):
             return pm4py.get_event_attribute_values(self.log, attribute, count_once_per_case, self.case_id_key)
         else:
@@ -144,7 +146,7 @@ class D4PyEventLog:
 
         """
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if packaging.version.parse(pm4py.__version__) > packaging.version.Version("2.3.1"):
             return pm4py.get_start_activities(self.log, self.activity_key, self.timestamp_key, self.case_id_key)
         else:
@@ -161,7 +163,7 @@ class D4PyEventLog:
 
         """
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if packaging.version.parse(pm4py.__version__) > packaging.version.Version("2.3.1"):
             return pm4py.get_end_activities(self.log, self.activity_key, self.timestamp_key, self.case_id_key)
         else:
@@ -176,27 +178,15 @@ class D4PyEventLog:
             Returns a dictionary containing all variants in the log.
         """
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if packaging.version.parse(pm4py.__version__) > packaging.version.Version("2.3.1"):
             return pm4py.get_variants(self.log, self.activity_key, self.timestamp_key, self.case_id_key)
         else:
             return pm4py.get_variants(self.log)
-    """
-    def get_log_alphabet_attribute(self, attribute_name: str = None) -> List[str]:
-        if self.log is None:
-            raise RuntimeError("You must load a log before.")
-        attribute_values = set()
-        try:
-            for trace in self.log:
-                for event in trace:
-                    attribute_values.add(event[attribute_name])
-        except KeyError as e:
-            print(f"{e} attribute does not exist. Check the log.")
-        return list(attribute_values)
-    """
+
     def get_trace(self, id_trace: int = None) -> Trace:
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         try:
             return self.log[id_trace]
         except IndexError:
@@ -213,7 +203,7 @@ class D4PyEventLog:
         """
         projection = []
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         try:
             for trace in self.log:
                 tmp_trace = []
@@ -226,7 +216,7 @@ class D4PyEventLog:
 
     def to_dataframe(self):
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if isinstance(self.log, DataFrame):
             raise RuntimeError("Your log is already in a DataFrame format.")
         with warnings.catch_warnings():
@@ -235,7 +225,7 @@ class D4PyEventLog:
 
     def to_eventlog(self):
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if isinstance(self.log, EventLog):
             raise RuntimeError("Your log is already in a EventLog format.")
         with warnings.catch_warnings():
@@ -257,7 +247,7 @@ class D4PyEventLog:
             len_itemset: the maximum length of the extracted itemsets.
         """
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if not 0 <= min_support <= 1:
             raise RuntimeError("Min. support must be in range [0, 1].")
 
@@ -293,13 +283,13 @@ class D4PyEventLog:
         if len_itemset is None:
             return frequent_itemsets
         elif len_itemset < 1:
-            raise RuntimeError(f"The parameter len_itemset must be greater than 0.")
+            raise RuntimeError("The parameter len_itemset must be greater than 0.")
         else:
             return frequent_itemsets[(frequent_itemsets['length'] <= len_itemset)]
 
     def save_xes(self, path: str):
         if self.log is None:
-            raise RuntimeError("You must load a log before.")
+            raise RuntimeError(self.ERR_LOG_NOT_LOADED)
         if type(path) is not str:
             raise RuntimeError("The path must be  a string.")
         try:

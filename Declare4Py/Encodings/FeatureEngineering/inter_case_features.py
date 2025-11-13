@@ -27,7 +27,7 @@ class InterCaseFeatures():
             for event in trace:
                 timestamp = event.get(timestamp_attr)
                 if timestamp is None:
-                    raise Exception(f"{timestamp_attr} attribute does not exist.")
+                    raise KeyError(f"The attribute '{timestamp_attr}' does not exist in the event.")
                 stamp_dict[str(timestamp.date())] += 1
         return OrderedDict(sorted(stamp_dict.items()))
 
@@ -49,10 +49,10 @@ class InterCaseFeatures():
             for event in trace:
                 payload = event.get(payload_attr)
                 if payload is None:
-                    raise Exception(f"{payload_attr} attribute does not exist.")
+                    raise KeyError(f"The attribute '{payload_attr}' does not exist in the event.")
                 timestamp = event.get(timestamp_attr)
                 if timestamp is None:
-                    raise Exception(f"{timestamp_attr} attribute does not exist.")
+                    raise KeyError(f"The attribute '{timestamp_attr}' does not exist in the event.")
                 stamp_dict[str(timestamp.date())].append(payload)
 
         for key, value in stamp_dict.items():
