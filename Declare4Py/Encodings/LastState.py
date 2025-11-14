@@ -8,7 +8,13 @@ import numpy as np
 
 class LastState(BaseEstimator, TransformerMixin):
     
-    def __init__(self, case_id_col: str, cat_cols: List[str], num_cols: List[str] = [], fillna: bool = True):
+    def __init__(
+    self,
+    case_id_col: str,
+    cat_cols: list[str],
+    num_cols: list[str] | None = None,
+    fillna: bool = True
+):
         """
         Parameters
         -------------------
@@ -21,6 +27,9 @@ class LastState(BaseEstimator, TransformerMixin):
         fillna
             TRUE: replace NA to 0 value in dataframe / FALSE: keep NA        
         """
+        
+        if num_cols is None:
+            num_cols = []
 
         self.case_id_col = case_id_col
         self.cat_cols = cat_cols
