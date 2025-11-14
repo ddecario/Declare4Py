@@ -198,7 +198,6 @@ def main():
     executed_events = InterCaseFeatures.events_by_date(log, TIMESTAMP_ATTR)
     resources_used = InterCaseFeatures.resources_by_date(log, TIMESTAMP_ATTR, "org:group")
     new_traces = InterCaseFeatures.new_trace_start(log, TIMESTAMP_ATTR)
-    event_executed = InterCaseFeatures.event_executions(log, "concept:name")
 
     encoded_dataset = []
     for trace in log:
