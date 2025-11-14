@@ -77,7 +77,7 @@ class InterCaseFeatures():
             for event in trace:
                 activity = event.get(activity_attr)
                 if activity is None:
-                    raise Exception(f"{activity_attr} attribute does not exist.")
+                    raise KeyError(f"The attribute '{activity_attr}' does not exist in the event.")
                 executions[activity] += 1
         return OrderedDict(sorted(executions.items()))
 
@@ -98,7 +98,7 @@ class InterCaseFeatures():
             event = trace[0]
             timestamp = event.get(timestamp_attr)
             if timestamp is None:
-                raise Exception(f"{timestamp_attr} attribute does not exist.")
+                raise KeyError(f"The attribute '{timestamp_attr}' does not exist in the event.")
             executions[str(timestamp.date())] += 1
         return OrderedDict(sorted(executions.items()))
 
