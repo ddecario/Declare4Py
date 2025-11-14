@@ -231,12 +231,12 @@ class AspGenerator(LogGenerator):
             self.py_logger.debug("Generating negative traces")
             violation = {'constraint_violation': True, 'violate_all_constraints': self.violate_all_constraints}
             dupl_decl_model = self.__get_decl_model_with_violate_constraint()
-            if generated_asp_file_path is not None:
-                lp = self.generate_asp_from_decl_model(self.encode_decl_model, generated_asp_file_path + '.neg.lp',
-                                                       dupl_decl_model, violation)
-            else:
+            if generated_asp_file_path is None:
                 lp = self.generate_asp_from_decl_model(self.encode_decl_model, None, dupl_decl_model, violation)
                 self.__generate_traces(lp, neg_traces_dist, "negative")
+            else:
+                self.generate_asp_from_decl_model(self.encode_decl_model, generated_asp_file_path + '.neg.lp',
+                                                       dupl_decl_model, violation)
 
             result['negative'] = self.clingo_output
             result_variation['negative'] = self.clingo_output_traces_variation
