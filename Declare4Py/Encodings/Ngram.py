@@ -61,8 +61,7 @@ class Ngram(BaseEstimator, TransformerMixin):
             lambda x: (['|'.join(x[self.act_col][i:i + self.n]) for i in range(0, len(x[self.act_col]) - self.n + 1)]))
 
         nested_list = list(ngram.values)
-        my_unnested_list = list(chain(*nested_list))
-        ngram_list = list(set(my_unnested_list))
+        ngram_list = list(set(chain(*nested_list)))
 
         X = X.groupby([self.case_id_col], sort=False).apply(lambda x: np.array(x[self.act_col]))
         X = X.apply(lambda x: self.func_ngram(x, n=self.n, v=0.7, ngram_list=ngram_list))
