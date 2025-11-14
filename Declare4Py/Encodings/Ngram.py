@@ -66,7 +66,7 @@ class Ngram(BaseEstimator, TransformerMixin):
         X = X.groupby([self.case_id_col], sort=False).apply(lambda x: np.array(x[self.act_col]))
         X = X.apply(lambda x: self.func_ngram(x, n=self.n, v=0.7, ngram_list=ngram_list))
         
-        dt_transformed = pd.DataFrame(columns=[i for i in ngram_list])
+        dt_transformed = pd.DataFrame(columns=ngram_list)
         for i in range(len(X)):
             dt_transformed.loc[i] = X[i]
         
