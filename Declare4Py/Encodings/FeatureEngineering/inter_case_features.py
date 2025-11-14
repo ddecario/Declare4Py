@@ -5,6 +5,7 @@ from pandas import DataFrame
 from pm4py.objects.log.obj import EventLog
 import pdb
 
+TIMESTAMP_ATTR = "time:timestamp"
 
 # TODO capire se event_executions è utile
 # TODO capire come codificare questi dizionari
@@ -194,9 +195,9 @@ def main():
     log = pm4py.convert_to_event_log(log)
     prefix_length = 2
 
-    executed_events = InterCaseFeatures.events_by_date(log, "time:timestamp")
-    resources_used = InterCaseFeatures.resources_by_date(log, "time:timestamp", "org:group")
-    new_traces = InterCaseFeatures.new_trace_start(log, "time:timestamp")
+    executed_events = InterCaseFeatures.events_by_date(log, TIMESTAMP_ATTR)
+    resources_used = InterCaseFeatures.resources_by_date(log, TIMESTAMP_ATTR, "org:group")
+    new_traces = InterCaseFeatures.new_trace_start(log, TIMESTAMP_ATTR)
     event_executed = InterCaseFeatures.event_executions(log, "concept:name")
 
     encoded_dataset = []
