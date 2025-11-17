@@ -775,7 +775,7 @@ class AspGenerator(LogGenerator):
                 self.max_events = max(events, self.max_events)
             self.negative_traces = sum(negative_custom_lengths.values())
             self.traces_length = self.traces_length + self.negative_traces
-        self.py_logger.info(f"****----**** Trace lengths, min_events, max_events are updated ****----****")
+        self.py_logger.info("****----**** Trace lengths, min_events, max_events are updated ****----****")
         self.py_logger.info(
             f"**--** Pos: {self.traces_length}, Neg: {self.negative_traces}, min {self.min_events}, max: {self.max_events} **--**")
         self._custom_counter = {"positive": custom_lengths, "negative": negative_custom_lengths}

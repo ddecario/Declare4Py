@@ -194,7 +194,7 @@ class AbstractLogGenerator(AbstractPMTask, ABC):
 
         # Otherwise a changes has been made
         if not isinstance(log_length, int):
-            raise ValueError(f"num_traces is not of type int!")
+            raise ValueError("num_traces is not of type int!")
         if log_length <= 0:
             raise ValueError(f"num_traces({log_length}) must be greater than zero!")
 
