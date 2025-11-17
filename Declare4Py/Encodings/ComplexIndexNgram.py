@@ -252,7 +252,7 @@ class ComplexIndexNgram(TransformerMixin):
         
         terms = x.split('|')
         loc1 = [i for i, e in enumerate(y) if e == terms[0]]
-        layer1 = list()
+        layer1 = {}
         if len(loc1) >0:
             for i in loc1:      
                 loc2 = [j for j in range(i, len(y)) if y[j] == terms[1]]
