@@ -414,8 +414,8 @@ class AspGenerator(LogGenerator):
         # "--project --sign-def=3 --rand-freq=0.9 --restart-on-model --seed=" + seed
         seed = randrange(0, 2 ** 30 - 1)
         self.py_logger.debug(f" Generating variation trace: {num_traces}, events{num_events}, seed:{seed}")
-        ctl = clingo.Control([f"-c t={int(num_events)}", "--project", f"1",  # f"{int(num_traces)}",
-                              f"--seed={seed}", f"--sign-def=rnd", f"--restart-on-model", f"--rand-freq={freq}"])
+        ctl = clingo.Control([f"-c t={int(num_events)}", "--project", "1",  # f"{int(num_traces)}",
+                              f"--seed={seed}", "--sign-def=rnd", "--restart-on-model", f"--rand-freq={freq}"])
         ctl.add(asp)
         ctl.add(self.asp_encoding)
         ctl.add(self.asp_template)
@@ -423,7 +423,7 @@ class AspGenerator(LogGenerator):
         result = ctl.solve(on_model=self.__handle_clingo_variation_result)
         self.py_logger.debug(f" Clingo variation Result :{str(result)}")
         if result.unsatisfiable:
-            warnings.warn(f'WARNING: Failed to generate trace variation/case.')
+            warnings.warn('WARNING: Failed to generate trace variation/case.')
 
     def __handle_clingo_result(self, output: clingo.solving.Model):
         """A callback method which is given to the clingo """
