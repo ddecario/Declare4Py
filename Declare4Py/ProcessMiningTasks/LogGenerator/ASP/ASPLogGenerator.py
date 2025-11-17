@@ -529,8 +529,7 @@ class AspGenerator(AbstractLogGenerator):
         res_value_decoded = decl_model.decode_value(res_value, self.encode_decl_model)
         res_value_decoded = str(res_value_decoded)
         is_number = re.match(r"[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?", res_value_decoded)
-        if is_number:
-            if res_name_decoded in attr_list:
+        if is_number and res_name_decoded in attr_list:
                 attr = attr_list[res_name_decoded]
                 if attr.value_type != DeclareModelAttr.ENUMERATION:
                     num = res_value_decoded
