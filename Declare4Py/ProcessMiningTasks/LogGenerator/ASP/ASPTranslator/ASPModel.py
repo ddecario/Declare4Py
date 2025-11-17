@@ -179,16 +179,16 @@ class ASPModel:
                     else:
                         self.add_asp_line(f"sat({idx}).")
             else:
-                isConstraintViolated = False
+                is_constraint_violated = False
                 s = ":-"
                 for idx, val in constraints_violate.items():
                     if val:
                         s = s + f'sat({idx}), '
-                        isConstraintViolated = True
+                        is_constraint_violated = True
                     else:
                         self.add_asp_line(f"sat({idx}).")
                 s = s.strip().rstrip(',')
-                if isConstraintViolated:
+                if is_constraint_violated:
                     self.add_asp_line(s + '.')
         else:
             for idx in model.templates:
