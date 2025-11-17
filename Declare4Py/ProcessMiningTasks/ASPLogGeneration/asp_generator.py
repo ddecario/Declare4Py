@@ -385,11 +385,11 @@ class AspGenerator(LogGenerator):
         """ """
         if self.run_parallel:
             with concurrent.futures.ThreadPoolExecutor(max_workers=self.parallel_workers) as executor:
-                for i in range(num_traces):
+                for _ in range(num_traces):
                     future = executor.submit(self.__run_clingo_trace_variation, asp, num_events, num_traces, freq)
                     self.parallel_futures.append(future)
         else:
-            for i in range(num_traces):
+            for _ in range(num_traces):
                 self.__run_clingo_trace_variation(asp, num_events, num_traces, freq)
 
     def __run_clingo_trace_variation(self, asp: str, num_events: int, num_traces: int, freq: float = 0.9):
