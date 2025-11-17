@@ -522,7 +522,7 @@ class AspGenerator(AbstractLogGenerator):
             if num <= 0:
                 num = 1
             self.__ASP_Log_Gen_Logger.warning(f'PM4PY log generated: {tot_traces_generated}/{self.log_length * num} only.')
-        self.__debug_message(f"Pm4py generated but not saved yet")
+        self.__debug_message("Pm4py generated but not saved yet")
 
     def __decode_and_scale_value(self, decl_model, attr_list, res_name, res_value):
         res_name_decoded = decl_model.decode_value(res_name, self.encode_decl_model)
