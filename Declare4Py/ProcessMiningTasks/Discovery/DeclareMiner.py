@@ -86,8 +86,7 @@ class DeclareMiner(AbstractDiscovery, ABC):
                                                                                                        self.event_log,
                                                                                                        self.consider_vacuity,
                                                                                                        self.min_support)
-                        # self.basic_discovery_results,= self.discover_constraint(self.event_log, constraint,
-                        #                                                        self.consider_vacuity)
+
                         if constraint_satisfaction:
                             self.process_model.constraints.append(constraint.copy())
                     else:
@@ -97,28 +96,23 @@ class DeclareMiner(AbstractDiscovery, ABC):
                                                                                                            self.event_log,
                                                                                                            self.consider_vacuity,
                                                                                                            self.min_support)
-                            # self.basic_discovery_results,= self.discover_constraint(self.event_log, constraint,
-                            #                                                        self.consider_vacuity)
                             if constraint_satisfaction:
                                 self.process_model.constraints.append(constraint.copy())
 
             elif length == 2:
                 for template in DeclareModelTemplate.get_binary_not_shortcut_templates():
-                    # constraint = {"template": templ, "activities": ', '.join(item_set), "condition": ("", "", "")}
+                    
                     constraint = {"template": template, "activities": list(item_set), "condition": ("", "")}
-                    # self.basic_discovery_results,= self.discover_constraint(self.event_log, constraint,
-                    #                                                        self.consider_vacuity)
+
                     constraint_satisfaction = ConstraintChecker().constraint_checking_with_support(constraint,
                                                                                                    self.event_log,
                                                                                                    self.consider_vacuity,
                                                                                                    self.min_support)
                     if constraint_satisfaction:
                         self.process_model.constraints.append(constraint.copy())
-                    # constraint['activities'] = ', '.join(reversed(list(item_set)))
 
                     constraint['activities'] = list(reversed(list(item_set)))
-                    # self.basic_discovery_results,= self.discover_constraint(self.event_log, constraint,
-                    #                                                        self.consider_vacuity)
+
                     constraint_satisfaction = ConstraintChecker().constraint_checking_with_support(constraint,
                                                                                                    self.event_log,
                                                                                                    self.consider_vacuity,
