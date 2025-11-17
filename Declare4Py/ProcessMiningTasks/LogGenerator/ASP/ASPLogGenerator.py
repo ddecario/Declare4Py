@@ -266,7 +266,7 @@ class AspGenerator(AbstractLogGenerator):
                 f"{int(number_of_traces)}",
                 f"--seed={seed}",
                 "--project",
-                f"--restart-on-model",
+                "--restart-on-model",
             ]
 
             # Appends the options of our configurations
@@ -319,7 +319,7 @@ class AspGenerator(AbstractLogGenerator):
 
                     result = run_clingo(asp_variation, num_events, num_traces, True)
                     if result.unsatisfiable:
-                        warnings.warn(f'WARNING: Failed to generate trace variation/case.')
+                        warnings.warn('WARNING: Failed to generate trace variation/case.')
 
     def __handle_clingo_result(self, output: clingo.solving.Model):
         """A callback method which is given to the clingo """
@@ -476,7 +476,7 @@ class AspGenerator(AbstractLogGenerator):
             integers: typing.List[int] = [int(p) for p in parts]
             return integers
 
-        self.__debug_message(f"Generating Pm4py log")
+        self.__debug_message("Generating Pm4py log")
         decl_model: DeclareParsedDataModel = self.get_process_model().parsed_model
         attr_list: dict[str, DeclareModelAttr] = decl_model.attributes_list
         tot_traces_generated = 0
