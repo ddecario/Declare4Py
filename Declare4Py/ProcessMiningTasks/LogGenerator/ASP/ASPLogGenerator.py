@@ -482,15 +482,6 @@ class AspGenerator(AbstractLogGenerator):
         tot_traces_generated = 0
         flattened = {}
 
-        """
-        for template in decl_model.templates.values():
-            print(template.to_dict()["time_condition"])
-            print("\n")
-            if template.to_dict()["time_condition"]:
-                print(template.to_dict())
-            print("\n")
-        """
-
         for result in self.asp_generated_traces:
             tot_traces_generated = tot_traces_generated + len(self.asp_generated_traces[result])
             traces_generated = self.asp_generated_traces[result]
