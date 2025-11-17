@@ -361,7 +361,7 @@ class AspGenerator(LogGenerator):
                 asp_variation = asp + "\n"
                 for ev in c.events:
                     asp_variation = asp_variation + f"trace({ev.name}, {ev.pos}).\n"
-                for nm in range(0, num):
+                for _ in range(0, num):
                     self.__generate_asp_trace_variation(asp_variation, num_events, 1, freq)
 
     def __generate_asp_trace_variation(self, asp: str, num_events: int, num_traces: int, freq: float = 0.9):
