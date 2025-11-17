@@ -549,7 +549,7 @@ class AspGenerator(AbstractLogGenerator):
             for trace in data[trace_type]:
                 trace_id = trace["trace_name"]
                 for id_ev, event in enumerate(trace["events"]):
-                    traceEvent = {
+                    trace_event = {
                         "case:concept:name": f'{trace_id}',
                         TIME_KEY: datetime.now() + timedelta(hours=id_ev, seconds=random.randint(0, 3599)),
                         # .isoformat(),
@@ -560,8 +560,8 @@ class AspGenerator(AbstractLogGenerator):
                     }
                     for res in event["resources"]:
                         for k, v in res.items():
-                            traceEvent[k] = v
-                    activities.append(traceEvent)
+                            trace_event[k] = v
+                    activities.append(trace_event)
         df = pd.DataFrame(activities)
         return df
 
