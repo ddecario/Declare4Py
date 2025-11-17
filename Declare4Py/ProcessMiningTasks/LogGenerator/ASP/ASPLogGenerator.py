@@ -30,6 +30,7 @@ from Declare4Py.ProcessModels.DeclareModel import DeclareParsedDataModel
 from Declare4Py.ProcessModels.DeclareModel import DeclareModelConstraintTemplate
 from Declare4Py.ProcessModels.DeclareModel import DeclareModelAttr
 
+LIFECYCLE_KEY = "lifecycle:transition"
 
 class LogTracesType(typing.TypedDict):
     positive: typing.Union[typing.List, typing.Dict]
@@ -498,7 +499,7 @@ class AspGenerator(AbstractLogGenerator):
 
                     _event = {
                         "ev": decl_model.decode_value(asp_event['name'], self.encode_decl_model),
-                        "lifecycle:transition": "complete",
+                        LIFECYCLE_KEY: "complete",
                         "resources": [],
                         "time:timestamp": datetime.now() + timedelta(hours=trace_position,
                                                                      seconds=random.randint(0, 3599))
@@ -554,7 +555,7 @@ class AspGenerator(AbstractLogGenerator):
                         "time:timestamp": datetime.now() + timedelta(hours=id_ev, seconds=random.randint(0, 3599)),
                         # .isoformat(),
                         # "date": datetime.now(),
-                        "lifecycle:transition": event["lifecycle:transition"],
+                        LIFECYCLE_KEY: event[LIFECYCLE_KEY],
                         "concept:name": event["ev"],
                         "case:label": trace_type,  # "complete",
                     }
@@ -577,7 +578,7 @@ class AspGenerator(AbstractLogGenerator):
                 for id_ev, event in enumerate(trace["events"]):
                     attributes = {
                         "concept:name": event["ev"],
-                        "lifecycle:transition": event["lifecycle:transition"],
+                        LIFECYCLE_KEY: event[LIFECYCLE_KEY],
                         "time:timestamp": datetime.now() + timedelta(hours=id_ev, seconds=random.randint(0,3599))
                     }
 
