@@ -763,7 +763,6 @@ class AspGenerator(LogGenerator):
         """
 
         if custom_lengths and len(custom_lengths) > 0:
-            # self.traces_length = len(custom_lengths)
             self.traces_length = sum(custom_lengths.values())
             events = custom_lengths.keys()
             self.min_events = min(events)
