@@ -861,7 +861,6 @@ class AspGenerator(AbstractLogGenerator):
         -------
 
         """
-        # indexes = activations_list.keys()  # indexes of constraint templates
         templates = self.get_process_model().parsed_model.templates
         n_dict = {}
         for m, n in activations_list.items():
@@ -889,7 +888,6 @@ class AspGenerator(AbstractLogGenerator):
         """
 
         if custom_lengths and len(custom_lengths) > 0:
-            # self.traces_length = len(custom_lengths)
             self.traces_length = sum(custom_lengths.values())
             events = custom_lengths.keys()
             self.min_events = min(events)
