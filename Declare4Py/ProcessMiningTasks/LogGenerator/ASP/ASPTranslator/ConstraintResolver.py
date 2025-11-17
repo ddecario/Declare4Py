@@ -79,11 +79,6 @@ class DeclareModelConditionResolver2ASP:
         else:
             if ct.template.is_binary:
                 ls.append(f"correlation_condition({idx},T):- time(T).")
-
-        # if ct.violate:
-        #     ls.append(f"unsat({idx}).")
-        # else:
-        #     ls.append(f"sat({idx}).")
         return ls
 
     def condition_to_asp(self, name: str, cond: str, i: int, attrs: dict[str, DeclareModelAttr]):
