@@ -15,6 +15,8 @@ from logaut import ltl2dfa
 from functools import reduce
 import pandas
 
+CONCEPT_NAME_ATTR = "concept:name"
+
 """
 Provides basic conformance checking functionalities
 """
@@ -28,7 +30,7 @@ def is_sink(dfa: SymbolicDFA, current_state: int):
     return sink
 
 
-def run_single_trace(trace: Trace, dfa: SymbolicDFA, backend, attribute_type: [str] = ['concept:name']) -> bool:
+def run_single_trace(trace: Trace, dfa: SymbolicDFA, backend, attribute_type: [str] = [CONCEPT_NAME_ATTR]) -> bool:
     """
     Function that is run when then 'jobs' count is set to 1. It checks if the automata can reach the accepting state or not.
     Args:
@@ -82,7 +84,7 @@ def run_single_trace_par(args):
 
     # Run single trace
     is_accepted = run_single_trace(trace, dfa, backend, attributes)
-    return trace.attributes['concept:name'], is_accepted
+    return trace.attributes[CONCEPT_NAME_ATTR], is_accepted
 
 
 def run_single_trace_par_MM(args):
@@ -105,8 +107,8 @@ def run_single_trace_par_MM(args):
         # Run single trace
         is_accepted = run_single_trace(trace, dfa, backend2dfa, attributes)
         if not is_accepted:
-            return trace.attributes['concept:name'], is_accepted
-    return trace.attributes['concept:name'], is_accepted
+            return trace.attributes[CONCEPT_NAME_ATTR], is_accepted
+    return trace.attributes[CONCEPT_NAME_ATTR], is_accepted
 
 
 class LTLAnalyzer(AbstractConformanceChecking):
