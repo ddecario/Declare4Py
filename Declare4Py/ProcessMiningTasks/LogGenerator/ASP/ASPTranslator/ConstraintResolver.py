@@ -37,7 +37,7 @@ class DeclareModelConditionResolver2ASP:
         """
         ls = []
         idx: int = ct.template_index
-        activation, target_cond, time = ct.get_conditions()
+        activation, target_cond, _ = ct.get_conditions()
         act_ev: DeclareModelEvent = ct.events_activities[0]
         act_ev_name = act_ev.event_name.get_encoded_name() if self.is_encoded else act_ev.event_name.get_name()
         ls.append('activation({},{}).'.format(idx, act_ev_name))
@@ -64,8 +64,8 @@ class DeclareModelConditionResolver2ASP:
         else:
             ls.append(f"activation_condition({idx},T) :- time(T).")
 
-        if target_cond:  # target = ct.activities[1]
-            exp, n2c, c2n = self.parsed_condition('correlation', target_cond)
+        if target_cond:
+            exp, n2c, _ = self.parsed_condition('correlation', target_cond)
             conditions = set(n2c.keys())
             if exp.isliteral:
                 ls.append('correlation_condition({},T):- {}({},T).'.format(idx, str(exp), idx))
