@@ -6,6 +6,7 @@ from typing import Union, Set, List, Tuple, Dict
 import packaging
 from packaging import version
 
+CONCEPT_NAME_KEY = "concept:name"
 
 class BasicFilters:
 
@@ -52,7 +53,7 @@ class BasicFilters:
                                                                       max_performance)
             return filtered_case_performance
 
-    def filter_start_activities(self, activities: Union[Set[str], List[str]], retain: bool = True, activity_key: str = "concept:name") -> EventLog:
+    def filter_start_activities(self, activities: Union[Set[str], List[str]], retain: bool = True, activity_key: str = CONCEPT_NAME_KEY) -> EventLog:
         """
         Filters all activities that start with the specified start activities
 
@@ -72,7 +73,7 @@ class BasicFilters:
             filtered_start_activities = pm4py.filter_start_activities(self.event_log.log, activities)
             return filtered_start_activities
 
-    def filter_end_activities(self, activities: [Set[str], List[str]], retain: bool = True, activity_key: str = "concept:name") -> EventLog:
+    def filter_end_activities(self, activities: [Set[str], List[str]], retain: bool = True, activity_key: str = CONCEPT_NAME_KEY) -> EventLog:
         """
         Filter cases having an end activity in the provided list
 
@@ -92,7 +93,7 @@ class BasicFilters:
             filter_activities = pm4py.filter_end_activities(self.event_log.log, activities)
             return filter_activities
 
-    def filter_variants_top_k(self, k: int, activity_key: str = "concept:name") -> EventLog:
+    def filter_variants_top_k(self, k: int, activity_key: str = CONCEPT_NAME_KEY) -> EventLog:
         """
         Keeps the top-k variants of the log.
 
@@ -111,7 +112,7 @@ class BasicFilters:
             variants_top_k = pm4py.filter_variants_top_k(self.event_log.log, k)
             return variants_top_k
 
-    def filter_variants(self, variants: [Set[str], List[str]], retain: bool = True, activity_key: str = "concept:name") -> EventLog:
+    def filter_variants(self, variants: [Set[str], List[str]], retain: bool = True, activity_key: str = CONCEPT_NAME_KEY) -> EventLog:
         """
         Filter a log by a specified set of variants.
 
