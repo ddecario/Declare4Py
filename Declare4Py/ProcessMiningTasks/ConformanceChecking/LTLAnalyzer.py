@@ -58,7 +58,7 @@ def run_single_trace(trace: Trace, dfa: SymbolicDFA, backend, attribute_type: [s
 
         current_states = reduce(
             set.union,
-            map(lambda x: dfa.get_successors(x, temp), current_states),
+            [dfa.get_successors(x, temp) for x in current_states],
             set(),
         )
 
