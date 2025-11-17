@@ -479,7 +479,7 @@ class AspGenerator(LogGenerator):
         -------
 
         """
-        self.py_logger.debug(f"Generating Pm4py log")
+        self.py_logger.debug("Generating Pm4py log")
         decl_model: DeclareParsedDataModel = self.process_model.parsed_model
         attr_list: dict[str, DeclareModelAttr] = decl_model.attributes_list
         tot_traces_generated = 0
