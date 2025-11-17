@@ -323,11 +323,11 @@ class AspGenerator(LogGenerator):
         ctl = clingo.Control([
             "-c",
             f"t={int(num_events)}",
-            f"1",
+            "1",
             "--project",
             "--sign-def=rnd",
             f"--rand-freq={freq}",
-            f"--restart-on-model",
+            "--restart-on-model",
             # f"--seed=8794",
             f"--seed={seed}",
         ])
