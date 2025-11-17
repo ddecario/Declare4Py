@@ -505,8 +505,6 @@ class AspGenerator(LogGenerator):
                     _instance["events"].append(_event)
                     for res in asp_event['resources']:
                         res_name, res_value = list(res.items())[0]
-                        #res_name_decoded = decl_model.decode_value(res_name, self.encode_decl_model)
-                        #res_value_decoded = decl_model.decode_value(res_value, self.encode_decl_model)
                         res_name_decoded, res_value_decoded = self.__decode_and_scale_value(decl_model, attr_list, res_name, res_value)
                         _event["resources"].append({res_name_decoded: res_value_decoded})
                 instance.append(_instance)
