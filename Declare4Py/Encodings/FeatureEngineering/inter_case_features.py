@@ -168,8 +168,13 @@ def trace_ids_in_log(log: EventLog) -> list:
 
 
 def traces_in_log(log: EventLog) -> list:
-    return [{'attributes': trace.attributes, 'events': [event for event in trace]} for trace in log]
-
+        return list(
+        {
+            "attributes": trace.attributes,
+            "events": list(trace)
+        }
+        for trace in log
+    )
 
 ################################################################################
 
