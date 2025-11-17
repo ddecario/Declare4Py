@@ -87,7 +87,7 @@ def run_single_trace_par(args):
     return trace.attributes[CONCEPT_NAME_ATTR], is_accepted
 
 
-def run_single_trace_par_MM(args):
+def run_single_trace_par_mm(args):
     """
     Same as the other run_trace functions, with the exception that this function is called when using multiple
     models.
