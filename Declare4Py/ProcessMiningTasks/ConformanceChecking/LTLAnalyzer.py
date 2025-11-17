@@ -44,7 +44,7 @@ def run_single_trace(trace: Trace, dfa: SymbolicDFA, backend, attribute_type: [s
     """
     current_states = {dfa.initial_state}
     for event in trace:
-        temp = dict()
+        temp = {}
         for attribute in attribute_type:
             symbol = event[attribute]
             symbol = Utils.parse_parenthesis(symbol)
