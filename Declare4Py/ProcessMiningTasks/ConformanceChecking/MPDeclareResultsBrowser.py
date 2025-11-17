@@ -3,6 +3,11 @@ from typing import List, Union, Optional
 from Declare4Py.Utils.Declare.Checkers import CheckerResult
 import pandas as pd
 
+METRIC_ERROR_MSG = (
+    "You must specify a metric among num_activations, num_violations, "
+    "num_fulfillments, num_pendings, state."
+)
+
 """
 Initializes class ConformanceCheckingResults
 
@@ -21,11 +26,9 @@ class MPDeclareResultsBrowser:
 
     def get_metric(self, metric: str, trace_id: int = None, constr_id: int = None) -> Union[pd.DataFrame, List, int]:
         if type(metric) is not str:
-            raise RuntimeError("You must specify a metric among num_activations, num_violations, num_fulfillments, "
-                               "num_pendings, state.")
+            raise RuntimeError(METRIC_ERROR_MSG)
         if metric not in ["num_activations", "num_violations", "num_fulfillments", "num_pendings", "state"]:
-            raise RuntimeError("You must specify a metric among num_activations, num_violations, num_fulfillments, "
-                               "num_pendings, state.")
+            raise RuntimeError(METRIC_ERROR_MSG)
         results = []
         if trace_id is None and constr_id is None:
             for trace_res in self.model_check_res:
@@ -53,8 +56,7 @@ class MPDeclareResultsBrowser:
             except TypeError as e:
                 print(f"The index of the trace/constraint must be integers or slices, not {e}.")
             except AttributeError:
-                print("You must specify a metric among num_activations, num_violations, num_fulfillments, "
-                      "num_pendings, state.")
+                print(METRIC_ERROR_MSG)
         return results
 
     @staticmethod
@@ -65,5 +67,4 @@ class MPDeclareResultsBrowser:
             else:
                 return getattr(result_checker, metric)
         except AttributeError:
-            print("You must specify a metric among num_activations, num_violations, num_fulfillments, "
-                  "num_pendings, state.")
+            print(METRIC_ERROR_MSG)
