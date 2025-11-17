@@ -97,9 +97,9 @@ def run_single_trace_par_mm(args):
     Returns:
 
     """
-    trace, list_LTLModels = args
+    trace, ltl_model_list = args
     is_accepted = True
-    for unpacked_model in list_LTLModels:
+    for unpacked_model in ltl_model_list:
         backend2dfa = unpacked_model[0]
         dfa = unpacked_model[1]
         attributes = unpacked_model[2]
