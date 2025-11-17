@@ -25,7 +25,7 @@ from Declare4Py.ProcessModels.DeclareModel import DeclareModel, DeclareParsedDat
     DeclareModelConstraintTemplate, DeclareModelAttributeType, DeclareModelAttr, DeclareModelTemplate
 import concurrent.futures
 
-
+LIFECYCLE_TRANSITION = "lifecycle:transition"
 class LogTracesType(typing.TypedDict):
     positive: typing.List
     negative: typing.List
@@ -40,6 +40,7 @@ def custom_sort_trace_key(x):
 
 
 class AspGenerator(LogGenerator):
+    
 
     def __init__(self, decl_model: DeclareModel, num_traces: int, min_event: int, max_event: int,
                  encode_decl_model: bool = True):
@@ -497,7 +498,7 @@ class AspGenerator(LogGenerator):
                     _event = {}
                     _event = {
                         "ev": decl_model.decode_value(asp_event['name'], self.encode_decl_model),
-                        "lifecycle:transition": "complete",
+                        LIFECYCLE_TRANSITION: "complete",
                         "resources": [],
                         "time:timestamp": datetime.now() + timedelta(hours=trace_position, seconds=random.randint(0, 3599))
                     }
@@ -550,7 +551,7 @@ class AspGenerator(LogGenerator):
                 for id_ev, event in enumerate(trace["events"]):
                     attributes = {
                         "concept:name": event["ev"],
-                        "lifecycle:transition": event["lifecycle:transition"],
+                        LIFECYCLE_TRANSITION: event[LIFECYCLE_TRANSITION],
                         "time:timestamp": datetime.now() + timedelta(hours=id_ev, seconds=random.randint(0,3599))
                     }
 
