@@ -339,11 +339,6 @@ class AspGenerator(LogGenerator):
         result = ctl.solve(on_model=self.__handle_clingo_result)
         self.py_logger.debug(f" Clingo Result: {str(result)}")
 
-        # ctl.ground([("base", [])], context=self)
-        # # ctl.ground()
-        # # result = ctl.solve(on_model=self.__handle_clingo_result, yield_=True)
-        # result = ctl.solve(on_model=self.__handle_clingo_result)
-
         if result.unsatisfiable:
             """
                 Clingo was not able to generate trace events with exactly num_events, thus it returns
