@@ -697,7 +697,6 @@ class AspGenerator(LogGenerator):
         -------
 
         """
-        # indexes = activations_list.keys()  # indexes of constraint templates
         templates = self.process_model.parsed_model.templates
         n_dict = {}
         for m, n in activations_list.items():
