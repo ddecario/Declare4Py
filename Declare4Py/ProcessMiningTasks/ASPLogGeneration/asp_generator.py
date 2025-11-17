@@ -254,7 +254,7 @@ class AspGenerator(LogGenerator):
                              f" Neg: {len(result['negative'])}. Parsing Trace results.")
         self.__resolve_clingo_results(result)
         self.__resolve_clingo_results_variation(result_variation)
-        self.py_logger.debug(f"Trace results parsed")
+        self.py_logger.debug("Trace results parsed")
         self.__pm4py_log()
 
     def __generate_traces(self, lp_model: str, traces_to_generate: collections.Counter, trace_type: str):
