@@ -157,7 +157,7 @@ class BasicFilters:
                                                                                values, level, retain)
             return filtered_event_attribute_val
 
-    def is_activity_of_i_state_A(self, activity: str, index: int):
+    def is_activity_of_i_state_a(self, activity: str, index: int):
         log = self.event_log.get_log()
         log_act = self.event_log.activity_key
         traces = list(filter(lambda trace: (trace[index][log_act] == activity), log))
