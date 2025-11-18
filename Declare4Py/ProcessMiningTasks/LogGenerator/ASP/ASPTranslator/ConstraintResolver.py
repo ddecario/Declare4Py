@@ -46,7 +46,7 @@ class DeclareModelConditionResolver2ASP:
             tar_ev_name = tar_ev.event_name.get_encoded_name() if self.is_encoded else tar_ev.event_name.get_name()
             ls.append('target({},{}).'.format(idx, tar_ev_name))
         if activation:
-            exp, n2c, c2n = self.parsed_condition('activation', activation)
+            exp, n2c, _ = self.parsed_condition('activation', activation)
             conditions = set(n2c.keys())
             if exp.isliteral:
                 nm = str(exp).strip()
