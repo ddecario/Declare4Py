@@ -101,8 +101,8 @@ class DeclareModelConditionResolver2ASP:
         A list of ASP strings.
         """
         name = name + APPEND_TEMPLATE.format(i)
-        string = re.sub('is not', 'is_not', cond)
-        string = re.sub('not in', 'not_in', string)
+        string = cond.replace("is not", "is_not")
+        string = string.replace("not in", "not_in")
         if cond.__contains__("."):
             attr = cond.split(".")[1].strip()  # A.grade>2
         else:
