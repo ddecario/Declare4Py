@@ -276,12 +276,12 @@ class DeclareModelConditionResolver2ASP:
         :return: The parsed expression, a dictionary mapping condition names to conditions, and a
                  dictionary mapping conditions to condition names.
         """
-        string = re.sub(r'\)', ' ) ', string)
-        string = re.sub(r'\(', ' ( ', string)
+        string = string.replace(")", " ) ")
+        string = string.replace("(", " ( ")
         string = string.strip()
         string = re.sub(' +', ' ', string)
-        string = re.sub('is not', 'is_not', string)
-        string = re.sub('not in', 'not_in', string)
+        string = string.replace("is not", "is_not")
+        string = string.replace("not in", "not_in")
         string = re.sub(' *> *', '>', string)
         string = re.sub(' *< *', '<', string)
         string = re.sub(' *= *', '=', string)
@@ -304,9 +304,9 @@ class DeclareModelConditionResolver2ASP:
         for i in range(len(form_list)):
             el = form_list[i]
             if '(' in el and ')' in el:
-                el = re.sub(r'\( ', '(', el)
-                el = re.sub(', ', ',', el)
-                el = re.sub(r' \)', ')', el)
+                el = el.replace("( ", "(")
+                el = el.replace(", ", ",")
+                el = el.replace(" )", ")")
                 form_list[i] = el
 
         keywords = {'and', 'AND', 'OR', 'or', '(', ')'}
