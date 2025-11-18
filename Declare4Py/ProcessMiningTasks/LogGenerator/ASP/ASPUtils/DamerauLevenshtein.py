@@ -2,6 +2,9 @@ import pandas as pd
 from typing import List, Set, Dict
 import pm4py
 
+CASE_CONCEPT_NAME = "case:concept:name"
+CONCEPT_NAME = "concept:name"
+
 class DamerauLevenshteinDistance:
 
     @staticmethod
@@ -15,9 +18,9 @@ class DamerauLevenshteinDistance:
     def analize_csv(path: str) -> float:
 
         ascii_offset: int = 161
-        df: pd.DataFrame = pd.read_csv(path)[["case:concept:name", "concept:name"]]
+        df: pd.DataFrame = pd.read_csv(path)[[CASE_CONCEPT_NAME, CONCEPT_NAME]]
 
-        act_loc_set: Set = set(df["concept:name"].unique())
+        act_loc_set: Set = set(df[CONCEPT_NAME].unique())
         symbol_to_ascii_map: Dict[str, chr] = {symbol: chr(idx + ascii_offset) for idx, symbol in enumerate(list(act_loc_set))}
 
         traces: List[str] = []
@@ -27,14 +30,14 @@ class DamerauLevenshteinDistance:
         for _, row in df.iterrows():
 
             if current_case is None:
-                current_case = row["case:concept:name"]
+                current_case = row[CASE_CONCEPT_NAME]
 
-            if row["case:concept:name"] == current_case:
-                trace += symbol_to_ascii_map[row["concept:name"]]
+            if row[CASE_CONCEPT_NAME] == current_case:
+                trace += symbol_to_ascii_map[row[CONCEPT_NAME]]
             else:
                 traces.append(trace)
-                current_case = row["case:concept:name"]
-                trace = symbol_to_ascii_map[row["concept:name"]]
+                current_case = row[CASE_CONCEPT_NAME]
+                trace = symbol_to_ascii_map[row[CONCEPT_NAME]]
 
         traces.append(trace)
 
