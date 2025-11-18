@@ -37,7 +37,7 @@ class ASPEncoder:
         if facts_name is None:
             facts_name = ["activity"]
         if not isinstance(facts_name, list):
-            raise ValueError(f"facts_name is not of type list!")
+            raise ValueError("facts_name is not of type list!")
 
         val3: str = ":- sat(I), not sat(I,t).\n"
         if not is_sat:
