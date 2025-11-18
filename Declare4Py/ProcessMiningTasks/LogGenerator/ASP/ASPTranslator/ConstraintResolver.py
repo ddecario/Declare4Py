@@ -11,7 +11,7 @@ from Declare4Py.ProcessModels.DeclareModel import DeclareModelEvent
 from Declare4Py.ProcessModels.DeclareModel import DeclareModelAttrValue
 from Declare4Py.ProcessModels.DeclareModel import DeclareModelToken
 
-
+APPEND_TEMPLATE = "({},T)"
 
 # Tutto codice di Manpreet
 
@@ -100,7 +100,7 @@ class DeclareModelConditionResolver2ASP:
         _______
         A list of ASP strings.
         """
-        name = name + '({},T)'.format(i)
+        name = name + APPEND_TEMPLATE.format(i)
         string = re.sub('is not', 'is_not', cond)
         string = re.sub('not in', 'not_in', string)
         if cond.__contains__("."):
@@ -358,14 +358,14 @@ class DeclareModelConditionResolver2ASP:
                 while condition_name in conditions_names:
                     condition_name = condition_name + '_'
                 conditions_names.add(condition_name)
-            return condition_name + '({},T)'.format(i)
+            return condition_name + APPEND_TEMPLATE.format(i)
 
         def no_params(arg_name):
             return arg_name.split('(')[0]
 
         if expression.isliteral:
             return
-        cond_name = cond_name + '({},T)'.format(i)
+        cond_name = cond_name + APPEND_TEMPLATE.format(i)
         formula_type = expression.operator
         formula_args = expression.args
         if formula_type == '|':
