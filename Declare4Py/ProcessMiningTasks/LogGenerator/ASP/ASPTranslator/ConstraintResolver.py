@@ -311,8 +311,8 @@ class DeclareModelConditionResolver2ASP:
 
         keywords = {'and', 'AND', 'OR', 'or', '(', ')'}
         c = 0
-        name_to_cond = dict()
-        cond_to_name = dict()
+        name_to_cond = {}
+        cond_to_name = {}
         for el in form_list:
             if el not in keywords:
                 c = c + 1
@@ -325,10 +325,6 @@ class DeclareModelConditionResolver2ASP:
             else:
                 form_string = form_string + el + ' '
         algebra = boolean.BooleanAlgebra()
-        # print("form_list", form_list)
-        # print("form_string", form_string)
-        # print("condition", condition)
-        # print("str", string)
         expression = algebra.parse(form_string, simplify=True)
         return expression, name_to_cond, cond_to_name
 
