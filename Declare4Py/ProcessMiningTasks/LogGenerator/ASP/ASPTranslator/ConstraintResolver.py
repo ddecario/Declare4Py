@@ -12,6 +12,7 @@ from Declare4Py.ProcessModels.DeclareModel import DeclareModelAttrValue
 from Declare4Py.ProcessModels.DeclareModel import DeclareModelToken
 
 APPEND_TEMPLATE = "({},T)"
+REGEX_SPLIT_PATTERN = r'[\s()]+'
 
 # Tutto codice di Manpreet
 
@@ -183,7 +184,6 @@ class DeclareModelConditionResolver2ASP:
         :return: The parsed expression, a dictionary mapping condition names to conditions, and a
                  dictionary mapping conditions to condition names.
         """
-        # s = self.parse_data_cond_to_pycond(string)
         return self.parsed_condition_2(condition, string)
 
     def parse_data_cond_to_pycond(self, cond: str):
@@ -206,7 +206,7 @@ class DeclareModelConditionResolver2ASP:
                     fill_enum_set = py_cond.endswith(" in (")
                 else:
                     if not fill_enum_set:
-                        next_word = re.split(r'[\s()]+', cond)[0]
+                        next_word = re.split(REGEX_SPLIT_PATTERN, cond)[0]
                         cond = cond[len(next_word):].lstrip()
                         if re.match(r'^[AaTt]\.', next_word):  # A. conditions
                             py_cond = py_cond + " " + '"' + next_word[2:] + '" in ' + next_word[0] \
@@ -220,7 +220,7 @@ class DeclareModelConditionResolver2ASP:
                             tmp = []
                             while cond and not (cond.startswith(')') or cond.lower().startswith('and')
                                                 or cond.lower().startswith('or')):
-                                w = re.split(r'[\s()]+', cond)[0]
+                                w = re.split(REGEX_SPLIT_PATTERN, cond)[0]
                                 cond = cond[len(w):].lstrip()
                                 tmp.append(w)
                             attr = " ".join(tmp)
@@ -233,7 +233,7 @@ class DeclareModelConditionResolver2ASP:
                             tmp = []
                             while cond and not (cond.startswith(')') or cond.lower().startswith('and')
                                                 or cond.lower().startswith('or')):
-                                w = re.split(r'[\s()]+', cond)[0]
+                                w = re.split(REGEX_SPLIT_PATTERN, cond)[0]
                                 cond = cond[len(w):].lstrip()
                                 tmp.append(w)
                             attr = " ".join(tmp)
@@ -243,7 +243,7 @@ class DeclareModelConditionResolver2ASP:
                             tmp = []
                             while cond and not (cond.startswith(')') or cond.lower().startswith('and')
                                                 or cond.lower().startswith('or')):
-                                w = re.split(r'[\s()]+', cond)[0]
+                                w = re.split(REGEX_SPLIT_PATTERN, cond)[0]
                                 cond = cond[len(w):].lstrip()
                                 tmp.append(w)
                             attr = " ".join(tmp)
