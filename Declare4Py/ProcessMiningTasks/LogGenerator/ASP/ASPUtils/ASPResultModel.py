@@ -101,22 +101,22 @@ class ASPResultTraceModel:
             list: A list containing the combined traces and resources.
         """
         result = []
-        nResult = {}
+        n_result = {}
         for trace_pos in traces:
             event = {}
             event["name"] = traces[trace_pos]
             event["ev_position"] = trace_pos
             event["resources"] = {}
-            nResult[trace_pos] = {"name": event["name"], "resources": []}
+            n_result[trace_pos] = {"name": event["name"], "resources": []}
             for resource in resources:
                 if resource["pos"] == trace_pos:
                     event["resources"][resource["res_name"]] = resource["res_val"]
-                    nResult[trace_pos]["resources"].append({resource["res_name"]: resource["res_val"]})
+                    n_result[trace_pos]["resources"].append({resource["res_name"]: resource["res_val"]})
                     event["resources"]["__position"] = resource["pos"]
                     event["__position"] = resource["pos"]
             result.append(event)
         result = sorted(result, key=lambda x: x['ev_position'])
-        return result, nResult
+        return result, n_result
 
     def __str__(self):
         st = f"""{{ "name": "{self.name}", "events": {self.events} }}"""
